@@ -1,0 +1,24 @@
+{
+  "name": "build-trace-plugin",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "main": "bundle.js",
+  "files": [
+    "build"
+  ],
+  "scripts": {
+    "build": "rspack build"
+  },
+  "peerDependencies": {
+    "@rspack/core": ">=0.5.0"
+  },
+  "devDependencies": {
+    "@rspack/cli": "^1.6.5",
+    "@rspack/core": "^1.6.5",
+    "@types/node": "^24.10.1",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "swc-loader": "^0.2.6"
+  }
+}
