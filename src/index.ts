@@ -7,33 +7,19 @@ import { BuildStatsConfig } from '&declarations/build_stats';
 import { LargeModuleConfig } from '&declarations/large_module';
 import { EnvValidatorConfig } from '&declarations/env_validator';
 import { UnusedModuleConfig } from '&declarations/unused_module';
+import { EnvValidatorDefaultSettings } from '&settings/env_validator';
+import { UnusedModuleDefaultSettings } from '&settings/ununsed_module';
+import { LargeModuleDefaultSettings } from '&settings/large_module';
+import { BuildStatsDefaultSettings } from '&settings/build_stats';
 
 import { BuildTracePluginOptions } from './types';
 
 export class BuildTracePlugin implements RspackPluginInstance {
     
-    private readonly envValidatorConfig: EnvValidatorConfig = {
-        active: false,
-        envs: {},
-    };
-
-    private readonly unusedModuleConfig: UnusedModuleConfig = {
-        active: false,
-        directory: 'src',
-    };
-
-    private readonly largeModuleConfig: LargeModuleConfig = {
-        active: false,
-        directory: 'src',
-        largeModules: [],
-        maxFileSize: 1024,
-    };
-
-    private readonly buildStatsConfig: BuildStatsConfig = {
-        active: false,
-        outputDir: 'build_stats',
-        outputFile: 'build_stats.json',
-    }
+    private readonly buildStatsConfig: BuildStatsConfig = BuildStatsDefaultSettings;
+    private readonly largeModuleConfig: LargeModuleConfig = LargeModuleDefaultSettings;
+    private readonly envValidatorConfig: EnvValidatorConfig = EnvValidatorDefaultSettings;
+    private readonly unusedModuleConfig: UnusedModuleConfig = UnusedModuleDefaultSettings;
 
     constructor (options: BuildTracePluginOptions) {
         
