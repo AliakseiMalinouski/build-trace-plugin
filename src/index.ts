@@ -26,25 +26,26 @@ export class BuildTracePlugin implements RspackPluginInstance {
         this.envValidatorConfig = {
             ...this.envValidatorConfig,
             active: !!options.envValidator,
-            envs: options.envValidator?.envs || this.envValidatorConfig.envs,
+            envs: options.envValidator?.envs ?? this.envValidatorConfig.envs,
         }
 
         this.unusedModuleConfig = {
             ...this.unusedModuleConfig,
             active: !!options.unusedModule,
-            directory: options.unusedModule?.directory || this.unusedModuleConfig.directory,
+            directory: options.unusedModule?.directory ?? this.unusedModuleConfig.directory,
         }
 
         this.largeModuleConfig = {
             ...this.largeModuleConfig,
             active: !!options.largeModule,
-            maxFileSize: options.largeModule?.maxFileSize || this.largeModuleConfig.maxFileSize
+            directory: options.largeModule?.directory ?? this.largeModuleConfig.directory,
+            maxFileSize: options.largeModule?.maxFileSize ?? this.largeModuleConfig.maxFileSize
         }
 
         this.buildStatsConfig = {
             ...this.buildStatsConfig,
             active: !!options.buildStats,
-            outputDir: options.buildStats?.outputDir || this.buildStatsConfig.outputDir,
+            outputDir: options.buildStats?.outputDir ?? this.buildStatsConfig.outputDir,
         }
     }
 
@@ -56,7 +57,8 @@ export class BuildTracePlugin implements RspackPluginInstance {
             
             const invalidEnvs: string[] = [];
             const hasValidEnvs = Object.entries(this.envValidatorConfig.envs).every(([key, value]) => {
-                if(!value) {
+                const isNil = value === null || value === '' || value === undefined;
+                if(isNil) {
                     invalidEnvs.push(key);
                 }
                 return value;
@@ -78,12 +80,12 @@ export class BuildTracePlugin implements RspackPluginInstance {
 
             compilation.hooks.finishModules.tap('UnusedModuleFinishModules', (modules) => {
                 for(const module of modules) {
-                    const isValidResource = module.context?.includes(this.unusedModuleConfig.directory);
+                    const isValidResource = module.nameForCondition()?.includes(this.unusedModuleConfig.directory);
                     const hasIncomingConnections = !!compilation.moduleGraph.getIncomingConnections(module).length;
                 
                     if(!hasIncomingConnections && isValidResource) {
                         unusedModulesAmount = unusedModulesAmount + 1;
-                        const preparedModuleName = module.context || module.identifier();
+                        const preparedModuleName = module.nameForCondition() || module.identifier();
                         console.log(`Module ${preparedModuleName} has not incoming connections`)
                     }
                 }
@@ -102,16 +104,16 @@ export class BuildTracePlugin implements RspackPluginInstance {
                 for(const module of modules) {
                     const moduleSize = module.size();
                     const isLargeModule = 
-                        !!module.context && 
+                        !!module.nameForCondition() && 
                         moduleSize > this.largeModuleConfig.maxFileSize &&
-                        module.context.includes(this.largeModuleConfig.directory) &&
-                        !module.context?.includes('node_modules');
+                        module.nameForCondition()?.includes(this.largeModuleConfig.directory) &&
+                        !module.nameForCondition()?.includes('node_modules');
                     if(isLargeModule) {
                         this.largeModuleConfig.largeModules.push({
                             type: module.type,
-                            size: module.size(),
-                            name: module.context,
+                            size: module.size() / 1024,
                             dependencies: module.dependencies.length,
+                            name: module.nameForCondition() || 'Unknown',
                         });
                     }
                 }
@@ -182,8 +184,8 @@ export class BuildTracePlugin implements RspackPluginInstance {
         );      
     }
 
-      console.log('✅ Build has finished successfully');
-      console.log(`📊 Build general stats generated in ${this.buildStatsConfig.outputDir}/${this.buildStatsConfig.outputFile}`);
+        console.log('✅ Build has finished successfully');
+        console.log(`📊 Build general stats generated in ${this.buildStatsConfig.outputDir}/${this.buildStatsConfig.outputFile}`);
     });
     }
 }

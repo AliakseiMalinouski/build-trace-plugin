@@ -16,6 +16,7 @@ export type BuildTracePluginOptions = {
      * large module plugin options
      */
     largeModule?: {
+        directory: string;
         maxFileSize: number;
     };
 
