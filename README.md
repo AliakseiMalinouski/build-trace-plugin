@@ -47,7 +47,7 @@ Identifies modules that exceed a given file size threshold.
 
 ---
 
-# Example
+# Config Example
 
 ```ts
 // rspack.config.ts
@@ -85,7 +85,29 @@ module.exports = {
       },
     }),
   ],
-});
+};
+
+```
+
+# Output Example
+
+```bash
+✅ All required environment variables are valid
+🔴 Build has 3 unused modules
+Module ./src/old/api.ts has no incoming connections
+Module ./src/utils/debug.ts has no incoming connections
+Module ./src/helpers/legacy.ts has no incoming connections
+
+🧐 Build has 2 suspected dependencies in modules:
+┌─────────┬───────────┬─────────────────────────────┐
+│ critical│ category  │ module name                  │
+├─────────┼───────────┼─────────────────────────────┤
+│ false   │ cjs       │ ./src/features/users/model  │
+│ true    │ unknown   │ ./src/app/index.tsx         │
+└─────────┴───────────┴─────────────────────────────┘
+
+📈 Assets size has increased about: 42 KB
+📊 Build general stats generated in stats/build-info.json
 
 ```
 
