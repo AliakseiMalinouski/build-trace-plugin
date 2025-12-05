@@ -1,5 +1,5 @@
 import { PluginCommonConfig } from "../common";
 
-export type UnusedModuleConfig = {
+export type UnusedModuleConfigType = {
     directory: string;
 } & PluginCommonConfig;

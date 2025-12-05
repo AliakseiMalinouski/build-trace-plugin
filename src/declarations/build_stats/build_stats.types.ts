@@ -1,6 +1,6 @@
 import { PluginCommonConfig } from "&declarations/common";
 
-export type BuildStatsConfig = {
+export type BuildStatsConfigType = {
     outputDir: string;
     outputFile: string;
 } & PluginCommonConfig;

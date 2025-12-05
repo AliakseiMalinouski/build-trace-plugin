@@ -1,7 +1,7 @@
 /**
- * default settings for large module plugin
+ * default config for large module plugin
  */
-export const LargeModuleDefaultSettings = {
+export const LargeModuleConfig = {
     active: false,
     directory: 'src',
     largeModules: [],

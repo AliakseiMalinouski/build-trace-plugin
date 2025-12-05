@@ -1,26 +1,26 @@
 import fs from 'fs';
 import path from "path";
-
 import { Compiler, RspackPluginInstance } from "@rspack/core";
 
-import { BuildStatsConfig } from '&declarations/build_stats';
-import { LargeModuleConfig } from '&declarations/large_module';
-import { EnvValidatorConfig } from '&declarations/env_validator';
-import { UnusedModuleConfig } from '&declarations/unused_module';
-import { EnvValidatorDefaultSettings } from '&settings/env_validator';
-import { UnusedModuleDefaultSettings } from '&settings/ununsed_module';
-import { LargeModuleDefaultSettings } from '&settings/large_module';
-import { BuildStatsDefaultSettings } from '&settings/build_stats';
+import { EnvValidatorConfig, EnvValidatorConfigType } from '&declarations/env_validator';
+import { UnusedModuleConfig, UnusedModuleConfigType } from '&declarations/unused_module';
+import { 
+    SupportedExtention, 
+    DependencyControllerConfig, 
+    DependencyControllerConfigType, 
+    SuspectedDependencyCategories 
+} from '&declarations/dependency_controller';
+import { BuildStatsConfigType, BuildStatsConfig } from '&declarations/build_stats';
+import { LargeModuleConfig, LargeModuleConfigType } from '&declarations/large_module';
 
 import { BuildTracePluginOptions } from './types';
-import { DependencyControllerConfig, DependencyControllerConfigType, SupportedExtention, SuspectedDependencyCategories } from '&declarations/dependency_controller';
 
 export class BuildTracePlugin implements RspackPluginInstance {
     
-    private readonly buildStatsConfig: BuildStatsConfig = BuildStatsDefaultSettings;
-    private readonly largeModuleConfig: LargeModuleConfig = LargeModuleDefaultSettings;
-    private readonly envValidatorConfig: EnvValidatorConfig = EnvValidatorDefaultSettings;
-    private readonly unusedModuleConfig: UnusedModuleConfig = UnusedModuleDefaultSettings;
+    private readonly buildStatsConfig: BuildStatsConfigType = BuildStatsConfig;
+    private readonly largeModuleConfig: LargeModuleConfigType = LargeModuleConfig;
+    private readonly envValidatorConfig: EnvValidatorConfigType = EnvValidatorConfig;
+    private readonly unusedModuleConfig: UnusedModuleConfigType = UnusedModuleConfig;
     private dependencyControllerConfig: DependencyControllerConfigType = DependencyControllerConfig;
 
     constructor (options: BuildTracePluginOptions) {

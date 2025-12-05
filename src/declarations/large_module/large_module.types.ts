@@ -7,7 +7,7 @@ type LargeModule = {
     dependencies: number;
 };
 
-export type LargeModuleConfig = {
+export type LargeModuleConfigType = {
     maxFileSize: number;
     directory: string;
     largeModules: LargeModule[];
