@@ -8,10 +8,6 @@ A powerful multi-module diagnostic plugin for **Rspack** that helps you detect u
 
 ## 🚀 Features
 
-The plugin includes **five independent subsystems**, each of which can be enabled or disabled:
-
----
-
 ### **1. 🕵️ DependencyController — suspicious dependency detector**
 
 Analyzes module dependencies and flags:
@@ -48,6 +44,48 @@ Validates required `process.env` variables before the build starts.
 ### **5. 🐘 LargeModule — large file detector**
 
 Identifies modules that exceed a given file size threshold.
+
+---
+
+# Example
+
+// rspack.config.ts
+import { defineConfig } from "@rspack/cli";
+import { BuildTracePlugin } from "build-trace-plugin";
+
+export default defineConfig({
+  ...your config,
+
+  plugins: [
+    new BuildTracePlugin({
+      dependencyController: {
+        directory: "src",
+        fileExtentions: ["ts", "tsx", "js", "jsx"],
+      },
+
+      buildStats: {
+        outputDir: "stats",
+        outputFile: "build-stats.json",
+      },
+
+      envValidator: {
+        envs: {
+          API_URL: process.env.API_URL,
+          AUTH_TOKEN: process.env.AUTH_TOKEN,
+        },
+      },
+
+      unusedModule: {
+        directory: "src",
+      },
+
+      largeModule: {
+        maxFileSize: 1024,
+        directory: "services",
+      },
+    }),
+  ],
+});
 
 ---
 
