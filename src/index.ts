@@ -2,8 +2,8 @@ import fs from 'fs';
 import path from "path";
 import { Compiler, RspackPluginInstance } from "@rspack/core";
 
-import { EnvValidatorConfig, EnvValidatorConfigType } from '&plugins/env_validator';
-import { UnusedModuleConfig, UnusedModuleConfigType } from '&plugins/unused_module';
+import { EnvValidatorConfig, EnvValidatorConfigType, setupEnvValidatorPlugin } from '&plugins/env_validator';
+import { setupUnusedModulePlugin, UnusedModuleConfig, UnusedModuleConfigType } from '&plugins/unused_module';
 import { 
     DependencyControllerConfig, 
     DependencyControllerConfigType, 
@@ -60,48 +60,16 @@ export class BuildTracePlugin implements RspackPluginInstance {
 
     apply (compiler: Compiler) {
 
-        compiler.hooks.initialize.tap('EnvValidator', () => {
+        compiler.hooks.initialize.tap('EnvValidator', setupEnvValidatorPlugin({
+            config: this.envValidatorConfig,
+        }));
 
-            if(!this.envValidatorConfig.active) return;
-            
-            const invalidEnvs: string[] = [];
-            const hasValidEnvs = Object.entries(this.envValidatorConfig.envs).every(([key, value]) => {
-                const isNil = value === null || value === '' || value === undefined;
-                if(isNil) {
-                    invalidEnvs.push(key);
-                }
-                return value;
-            });
-
-            if(hasValidEnvs) {
-                console.log(`✅ All required environment variables are valid`);
-            }
-            else {
-                console.log(`❌ Some environment variable is not valid: ${invalidEnvs}`);
-            }
-        });
-
-        compiler.hooks.thisCompilation.tap('UnusedModule', (compilation) => {
-
-            if(!this.unusedModuleConfig.active) return;
-
-            let unusedModulesAmount: number = 0;
-
-            compilation.hooks.finishModules.tap('UnusedModuleFinishModules', (modules) => {
-                for(const module of modules) {
-                    const isValidResource = module.nameForCondition()?.includes(this.unusedModuleConfig.directory);
-                    const hasIncomingConnections = !!compilation.moduleGraph.getIncomingConnections(module).length;
-                
-                    if(!hasIncomingConnections && isValidResource) {
-                        unusedModulesAmount = unusedModulesAmount + 1;
-                        const preparedModuleName = module.nameForCondition() || module.identifier();
-                        console.log(`Module ${preparedModuleName} has not incoming connections`)
-                    }
-                }
-                const preparedEmoji = !!unusedModulesAmount ? '🔴' : '🥳';
-                console.log(`${preparedEmoji} Build has ${unusedModulesAmount} unused modules`);
-            });
-        });
+        compiler.hooks.thisCompilation.tap('UnusedModule', (compilation) => (
+            setupUnusedModulePlugin({
+                compilation,
+                config: this.unusedModuleConfig,
+            })()
+        ));
 
         compiler.hooks.thisCompilation.tap('LargeModule', (compilation) => {
 
