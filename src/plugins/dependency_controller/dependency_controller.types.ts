@@ -1,4 +1,6 @@
-import { PluginCommonConfig } from "&declarations/common";
+import { Module } from "@rspack/core";
+
+import { PluginCommonConfig } from "../common";
 
 export const SupportedExtentions = {
     js: 'js',
@@ -25,3 +27,8 @@ type TSuspectedDependency = {
 export type DependencyControllerConfigType = Required<{
     suspectedDependencies: TSuspectedDependency[];
 } & DependencyControllerPluginOptions & PluginCommonConfig>;
+
+export type PrepareModuleOutputParams = {
+    module: Module;
+    config: DependencyControllerConfigType;
+}

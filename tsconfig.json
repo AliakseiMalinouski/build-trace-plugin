@@ -9,8 +9,7 @@
     "skipLibCheck": true,
     "types": ["node"],
     "paths": {
-      "&settings/*": ["./src/settings/*"],
-      "&declarations/*": ["./src/declarations/*"]
+      "&plugins/*": ["./src/plugins/*"]
     }
   },
   "include": ["src"]

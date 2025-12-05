@@ -16,8 +16,7 @@ module.exports = {
     extensions: ['.ts', '.js'],
   },
   alias: {
-    '&settings': path.resolve(__dirname, './src/settings'),
-    "&declarations": path.resolve(__dirname, 'src/declarations'),
+    "&plugins": path.resolve(__dirname, 'src/plugins'),
   },
   devtool: false,
   module: {

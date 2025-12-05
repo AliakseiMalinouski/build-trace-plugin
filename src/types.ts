@@ -1,4 +1,4 @@
-import { SupportedExtention } from "&declarations/dependency_controller";
+import { SupportedExtention } from "./plugins/dependency_controller";
 
 export type BuildTracePluginOptions = {
 

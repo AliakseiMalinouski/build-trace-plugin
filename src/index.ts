@@ -2,16 +2,16 @@ import fs from 'fs';
 import path from "path";
 import { Compiler, RspackPluginInstance } from "@rspack/core";
 
-import { EnvValidatorConfig, EnvValidatorConfigType } from '&declarations/env_validator';
-import { UnusedModuleConfig, UnusedModuleConfigType } from '&declarations/unused_module';
+import { EnvValidatorConfig, EnvValidatorConfigType } from '&plugins/env_validator';
+import { UnusedModuleConfig, UnusedModuleConfigType } from '&plugins/unused_module';
 import { 
-    SupportedExtention, 
     DependencyControllerConfig, 
     DependencyControllerConfigType, 
-    SuspectedDependencyCategories 
-} from '&declarations/dependency_controller';
-import { BuildStatsConfigType, BuildStatsConfig } from '&declarations/build_stats';
-import { LargeModuleConfig, LargeModuleConfigType } from '&declarations/large_module';
+    SuspectedDependencyCategories, 
+    prepareModuleOutput
+} from '&plugins/dependency_controller';
+import { BuildStatsConfigType, BuildStatsConfig } from '&plugins/build_stats';
+import { LargeModuleConfig, LargeModuleConfigType } from '&plugins/large_module';
 
 import { BuildTracePluginOptions } from './types';
 
@@ -135,15 +135,21 @@ export class BuildTracePlugin implements RspackPluginInstance {
 
     compiler.hooks.thisCompilation.tap('DependencyControllerCompilation', (compilation) => {
         compilation.hooks.finishModules.tap('DependencyControllerFinishModules', (modules) => {
+
+            this.dependencyControllerConfig.suspectedDependencies = [];
+
+            if(!this.dependencyControllerConfig.active) return;
+
             for(const module of modules) {
-                const moduleName = module.nameForCondition();
-                const hasValidDirectory = module.context?.includes(this.dependencyControllerConfig.directory);
-                const moduleNameParts = module.nameForCondition()?.split('/') || [];
-                const moduleFile = moduleNameParts[moduleNameParts?.length - 1];
-                const moduleFileParts = moduleFile.split('.');
-                const isNodeModule = module.context?.includes('node_modules');
-                const moduleExtention = moduleFileParts[moduleFileParts.length - 1];
-                const hasValidExtention = this.dependencyControllerConfig.fileExtentions.includes(moduleExtention as SupportedExtention);
+                const {
+                    moduleName,
+                    isNodeModule,
+                    hasValidDirectory,
+                    hasValidExtention,
+                } = prepareModuleOutput({
+                    module,
+                    config: this.dependencyControllerConfig,
+                });
 
                 const shouldBeChecked = hasValidDirectory && hasValidExtention && !isNodeModule;
                 if(!shouldBeChecked) continue;
@@ -153,8 +159,8 @@ export class BuildTracePlugin implements RspackPluginInstance {
                     if(!isSuspected) continue;
                     
                     this.dependencyControllerConfig.suspectedDependencies.push({
+                        name: moduleName,
                         critical: dependency.critical,
-                        name: moduleName ?? 'Unknown',
                         category: dependency.category,
                     });
                 }
