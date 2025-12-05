@@ -13,6 +13,7 @@ import { LargeModuleDefaultSettings } from '&settings/large_module';
 import { BuildStatsDefaultSettings } from '&settings/build_stats';
 
 import { BuildTracePluginOptions } from './types';
+import { DependencyControllerConfig, DependencyControllerConfigType, SupportedExtention, SuspectedDependencyCategories } from '&declarations/dependency_controller';
 
 export class BuildTracePlugin implements RspackPluginInstance {
     
@@ -20,6 +21,7 @@ export class BuildTracePlugin implements RspackPluginInstance {
     private readonly largeModuleConfig: LargeModuleConfig = LargeModuleDefaultSettings;
     private readonly envValidatorConfig: EnvValidatorConfig = EnvValidatorDefaultSettings;
     private readonly unusedModuleConfig: UnusedModuleConfig = UnusedModuleDefaultSettings;
+    private dependencyControllerConfig: DependencyControllerConfigType = DependencyControllerConfig;
 
     constructor (options: BuildTracePluginOptions) {
         
@@ -46,6 +48,13 @@ export class BuildTracePlugin implements RspackPluginInstance {
             ...this.buildStatsConfig,
             active: !!options.buildStats,
             outputDir: options.buildStats?.outputDir ?? this.buildStatsConfig.outputDir,
+        }
+
+        this.dependencyControllerConfig = {
+            ...this.dependencyControllerConfig,
+            active: !!options.dependencyController,
+            directory: options.dependencyController?.directory ?? this.dependencyControllerConfig.directory,
+            fileExtentions: options.dependencyController?.fileExtentions ?? this.dependencyControllerConfig.fileExtentions,
         }
     }
 
@@ -96,33 +105,74 @@ export class BuildTracePlugin implements RspackPluginInstance {
 
         compiler.hooks.thisCompilation.tap('LargeModule', (compilation) => {
 
-            this.largeModuleConfig.largeModules = [];
+        this.largeModuleConfig.largeModules = [];
 
-            if(!this.largeModuleConfig.active) return;
+        if(!this.largeModuleConfig.active) return;
 
-            compilation.hooks.finishModules.tap('LargeModuleFinishedModules', (modules) => {
-                for(const module of modules) {
-                    const moduleSize = module.size();
-                    const isLargeModule = 
-                        !!module.nameForCondition() && 
-                        moduleSize > this.largeModuleConfig.maxFileSize &&
-                        module.nameForCondition()?.includes(this.largeModuleConfig.directory) &&
-                        !module.nameForCondition()?.includes('node_modules');
-                    if(isLargeModule) {
-                        this.largeModuleConfig.largeModules.push({
-                            type: module.type,
-                            size: module.size() / 1024,
-                            dependencies: module.dependencies.length,
-                            name: module.nameForCondition() || 'Unknown',
-                        });
-                    }
+        compilation.hooks.finishModules.tap('LargeModuleFinishedModules', (modules) => {
+            for(const module of modules) {
+                const moduleSize = module.size();
+                const isLargeModule = 
+                    !!module.nameForCondition() && 
+                    moduleSize > this.largeModuleConfig.maxFileSize &&
+                    module.nameForCondition()?.includes(this.largeModuleConfig.directory) &&
+                    !module.nameForCondition()?.includes('node_modules');
+                if(isLargeModule) {
+                    this.largeModuleConfig.largeModules.push({
+                        type: module.type,
+                        size: module.size() / 1024,
+                        dependencies: module.dependencies.length,
+                        name: module.nameForCondition() || 'Unknown',
+                    });
                 }
-                const preparedModulesOutput = this.largeModuleConfig.largeModules.map((largeModule) => 
-                    `Module: ${largeModule.name} - size ${largeModule.size} KB \n`
-                ).join(' ');  
-                console.log(`Build has large ${this.largeModuleConfig.largeModules.length} modules: \n ${preparedModulesOutput}`)
-            });
+            }
+            const preparedModulesOutput = this.largeModuleConfig.largeModules.map((largeModule) => 
+                `Module: ${largeModule.name} - size ${largeModule.size} KB \n`
+            ).join(' ');  
+            console.log(`Build has large ${this.largeModuleConfig.largeModules.length} modules: \n ${preparedModulesOutput}`)
         });
+    });
+
+    compiler.hooks.thisCompilation.tap('DependencyControllerCompilation', (compilation) => {
+        compilation.hooks.finishModules.tap('DependencyControllerFinishModules', (modules) => {
+            for(const module of modules) {
+                const moduleName = module.nameForCondition();
+                const hasValidDirectory = module.context?.includes(this.dependencyControllerConfig.directory);
+                const moduleNameParts = module.nameForCondition()?.split('/') || [];
+                const moduleFile = moduleNameParts[moduleNameParts?.length - 1];
+                const moduleFileParts = moduleFile.split('.');
+                const isNodeModule = module.context?.includes('node_modules');
+                const moduleExtention = moduleFileParts[moduleFileParts.length - 1];
+                const hasValidExtention = this.dependencyControllerConfig.fileExtentions.includes(moduleExtention as SupportedExtention);
+
+                const shouldBeChecked = hasValidDirectory && hasValidExtention && !isNodeModule;
+                if(!shouldBeChecked) continue;
+
+                for(const dependency of module.dependencies) {
+                    const isSuspected = SuspectedDependencyCategories.includes(dependency.category) || dependency.critical;
+                    if(!isSuspected) continue;
+                    
+                    this.dependencyControllerConfig.suspectedDependencies.push({
+                        critical: dependency.critical,
+                        name: moduleName ?? 'Unknown',
+                        category: dependency.category,
+                    });
+                }
+            }
+
+            if(!this.dependencyControllerConfig.suspectedDependencies.length) {
+                console.log(`✅ Build has ${this.dependencyControllerConfig.suspectedDependencies.length} modules dependencies!`);
+            }
+            else {
+                console.log(`🧐 Build has ${this.dependencyControllerConfig.suspectedDependencies.length} suspected dependencies in modules:`);
+                console.table(this.dependencyControllerConfig.suspectedDependencies.map(d => ({
+                    critical: d.critical,
+                    'dependency category': d.category,
+                    'module name': d.name.replace(process.cwd(), '.')
+                })));
+            }
+        });
+    });
 
     compiler.hooks.done.tap('BuildLogger', (stats) => {
       

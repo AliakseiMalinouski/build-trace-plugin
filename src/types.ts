@@ -1,3 +1,5 @@
+import { SupportedExtention } from "&declarations/dependency_controller";
+
 export type BuildTracePluginOptions = {
 
     /** env validator plugin options */
@@ -21,9 +23,18 @@ export type BuildTracePluginOptions = {
     };
 
     /**
-     * build stats plugin flag
+     * build stats plugin options
      */
     buildStats?: {
         outputDir: string;
     };
+
+    /**
+     * dependency controller plugin options
+     */
+
+    dependencyController?: {
+        directory?: string;
+        fileExtentions?: SupportedExtention[];
+    }
 };
