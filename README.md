@@ -13,7 +13,7 @@ A powerful multi-module diagnostic plugin for **Rspack** that helps you detect u
 Analyzes module dependencies and flags:
 
 - dynamic imports
-- CommonJS imports
+- commonJS imports
 - mixed-module imports
 - critical dependencies
 - unknown dependency categories
@@ -49,13 +49,12 @@ Identifies modules that exceed a given file size threshold.
 
 # Example
 
+```ts
 // rspack.config.ts
-import { defineConfig } from "@rspack/cli";
 import { BuildTracePlugin } from "build-trace-plugin";
 
-```ts
-export default defineConfig({
-  ...your config,
+module.exports = {
+  // ...your config,
 
   plugins: [
     new BuildTracePlugin({
