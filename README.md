@@ -53,6 +53,7 @@ Identifies modules that exceed a given file size threshold.
 import { defineConfig } from "@rspack/cli";
 import { BuildTracePlugin } from "build-trace-plugin";
 
+```ts
 export default defineConfig({
   ...your config,
 
@@ -86,6 +87,8 @@ export default defineConfig({
     }),
   ],
 });
+
+```
 
 ---
 
