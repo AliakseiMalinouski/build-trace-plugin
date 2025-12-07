@@ -1,4 +1,5 @@
 import { Compilation } from "@rspack/core";
+
 import { DependencyControllerConfigType, SuspectedDependency, SuspectedDependencyCategories } from "./dependency_controller.types";
 import { prepareModuleOutput } from "./utils";
 

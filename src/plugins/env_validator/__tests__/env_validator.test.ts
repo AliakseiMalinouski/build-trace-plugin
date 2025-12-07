@@ -10,10 +10,6 @@ describe("Env Validator Plugin", () => {
     logSpy.mockClear();
   });
 
-  afterEach(() => {
-    logSpy.mockReset();
-  });
-
   const runPlugin = (config: EnvValidatorConfigType) => {
     const pluginFn = setupEnvValidatorPlugin({ config });
     pluginFn();
@@ -58,7 +54,7 @@ describe("Env Validator Plugin", () => {
     expect(logSpy).toHaveBeenCalledWith("\n");
 
     expect(logSpy).toHaveBeenCalledWith(
-        "❌ Env Validator Plugin: Some environment variable is not valid: API_URL"
+      "❌ Env Validator Plugin: Some environment variable is not valid: API_URL"
     );
   });
 
