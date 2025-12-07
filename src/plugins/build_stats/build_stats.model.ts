@@ -73,6 +73,7 @@ export const setupBuildStatsPlugin = ({
         );      
     }
 
+    console.log(`\n`);
     console.log('✅ Build has finished successfully');
     console.log(`📊 Build general stats generated in ${config.outputDir}/${config.outputFile}`);
 };

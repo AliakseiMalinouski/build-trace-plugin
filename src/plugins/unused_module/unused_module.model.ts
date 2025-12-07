@@ -24,6 +24,7 @@ export const setupUnusedModulePlugin = ({
             }
         }
         const preparedEmoji = !!unusedModulesAmount ? '🔴' : '🥳';
+        console.log(`\n`);
         console.log(`${preparedEmoji} Build has ${unusedModulesAmount} unused modules`);
     });
 };

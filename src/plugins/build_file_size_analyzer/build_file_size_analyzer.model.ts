@@ -41,6 +41,7 @@ export const setupBuildFileSizeAnalyzer = (stats: Stats) => {
             }
         }
 
+        console.log(`\n`);
         console.table(assets.map((asset) => ({
             name: asset.name,
             type: getAssetType(asset.name),

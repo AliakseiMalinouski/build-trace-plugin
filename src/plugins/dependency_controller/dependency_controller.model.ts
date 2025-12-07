@@ -41,6 +41,7 @@ export const setupDependencyControllerPlugin = ({
         }
     }
 
+    console.log(`\n`);
     if(!suspectedDependencies.length) {
         console.log(`✅ Build has ${suspectedDependencies} modules dependencies!`);
     }

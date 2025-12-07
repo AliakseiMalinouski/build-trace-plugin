@@ -18,11 +18,13 @@ export const setupEnvValidatorPlugin = ({
             return value;
         });
 
+        console.log(`\n`);
+        
         if(hasValidEnvs) {
-            console.log(`✅ All required environment variables are valid`);
+            console.log(`✅ Env Validator Plugin: All required environment variables are valid`);
         }
         else {
-            console.log(`❌ Some environment variable is not valid: ${invalidEnvs}`);
+            console.log(`❌ Env Validator Plugin: Some environment variable is not valid: ${invalidEnvs}`);
         }
     }
 };
