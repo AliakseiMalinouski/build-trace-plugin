@@ -47,6 +47,12 @@ Identifies modules that exceed a given file size threshold.
 
 ---
 
+### **6. 📶 FileSizeAnalyzer — analyzes your build files sizes**
+
+Identifies modules that exceed a given file size threshold.
+
+---
+
 # 📦 Installation
 
 ```bash
