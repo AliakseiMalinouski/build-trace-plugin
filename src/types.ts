@@ -36,5 +36,10 @@ export type BuildTracePluginOptions = {
     dependencyController?: {
         directory?: string;
         fileExtentions?: SupportedExtention[];
-    }
+    };
+
+    /**
+     * build fule size plugin flag
+     */
+    buildFileSize?: boolean;
 };

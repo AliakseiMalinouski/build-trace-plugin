@@ -15,6 +15,7 @@ import { setupBuildFileSizeAnalyzer } from "&plugins/build_file_size_analyzer";
 
 export class BuildTracePlugin implements RspackPluginInstance {
     
+    private readonly buildFileSizeActive: boolean = false;
     private readonly buildStatsConfig: BuildStatsConfigType = BuildStatsConfig;
     private readonly largeModuleConfig: LargeModuleConfigType = LargeModuleConfig;
     private readonly envValidatorConfig: EnvValidatorConfigType = EnvValidatorConfig;
@@ -54,6 +55,8 @@ export class BuildTracePlugin implements RspackPluginInstance {
             directory: options.dependencyController?.directory ?? this.dependencyControllerConfig.directory,
             fileExtentions: options.dependencyController?.fileExtentions ?? this.dependencyControllerConfig.fileExtentions,
         };
+
+        this.buildFileSizeActive = options.buildFileSize ?? this.buildFileSizeActive;
     }
 
     apply (compiler: Compiler) {
