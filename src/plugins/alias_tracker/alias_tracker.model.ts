@@ -1,6 +1,6 @@
 import { Compilation } from "@rspack/core";
 
-import { AliasPrefix, AliasPrefixes, AliasTrackerConfigType } from "./alias_tracker.types";
+import { AliasPrefixes, AliasTrackerConfigType } from "./alias_tracker.types";
 
 const aliasRegex = /[@&][\w\d-_]+/g;
 
