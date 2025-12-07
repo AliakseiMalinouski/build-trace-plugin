@@ -1,3 +1,4 @@
+import { AliasPrefix } from "&plugins/alias_tracker";
 import { SupportedExtention } from "&plugins/dependency_controller";
 
 export type BuildTracePluginOptions = {
@@ -42,4 +43,11 @@ export type BuildTracePluginOptions = {
      * build file size plugin options
      */
     buildFileSize?: boolean;
+
+    /**
+     * alias tracker plugin options
+     */
+    aliasTracker?: {
+        aliasPrefix: AliasPrefix;
+    };
 };
