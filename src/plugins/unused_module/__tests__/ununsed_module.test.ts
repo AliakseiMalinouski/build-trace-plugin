@@ -1,9 +1,9 @@
-import { describe, test, expect, vi, beforeEach, afterEach } from "vitest";
 import { Compilation } from "@rspack/core";
+import { describe, test, expect, vi, beforeEach, afterEach } from "vitest";
 
 import { setupUnusedModulePlugin } from "../unused_module.model";
 
-describe("UnusedModule Plugin", () => {
+describe("Unused Module Plugin", () => {
   const logSpy = vi.spyOn(console, "log").mockImplementation(() => {});
 
   beforeEach(() => {
