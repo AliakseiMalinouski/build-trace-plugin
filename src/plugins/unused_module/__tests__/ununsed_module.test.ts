@@ -14,7 +14,7 @@ describe("Unused Module Plugin", () => {
     logSpy.mockReset();
   });
 
-  const mockModule = (name: string, hasIncoming: boolean) => ({
+  const mockModule = (name: string, _: boolean) => ({
     nameForCondition: () => name,
     identifier: () => name,
     dependencies: [],
