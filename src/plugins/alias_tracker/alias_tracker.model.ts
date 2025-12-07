@@ -19,31 +19,26 @@ export const setupAliasTrackerPlugin = ({
         const hasNotAliasOption = !('alias' in compilation.options);
         if(hasNotAliasOption) return;
 
+        const aliasStats: Record<string, number> = {};
+
         for(const module of modules) {
             const moduleName = module.nameForCondition() ?? module.context ?? 'Unknown';
-
-            if(moduleName === 'Unknown') continue;
-
-            const includesAlias = !!moduleName?.includes(AliasPrefixes["&"] || AliasPrefixes["@"]);
-
-            if(!includesAlias) continue;
+            if (moduleName === 'Unknown') continue;
 
             const matches = moduleName.match(aliasRegex);
+            if (!matches) continue;
 
-            if(!matches || !matches.length) continue;
-
-            const aliasDir = matches[0];
-
-            if(!aliasDir) continue;
-
-            const aliasStats: Record<string, number> = {};
-
-            aliasStats[aliasDir] = (aliasStats[aliasDir] || 0) + 1;
-
-            console.log(`🗃️ Alias stats by usage:`);
-            console.table(Object.entries(aliasStats).map(([dir, amount]) => ({
-                'alias directory': amount,
-            })));
+            for (const aliasDir of matches) {
+                aliasStats[aliasDir] = (aliasStats[aliasDir] || 0) + 1;
+            };
         };
+
+        if(!Object.keys(aliasStats)) return;
+
+        console.log(`/n`);
+        console.log(`🗃️ Alias stats by usage:`);
+        console.table(Object.entries(aliasStats).map(([dir, amount]) => ({
+            [dir]: amount,
+        })));
     });
 };
