@@ -17,6 +17,7 @@ module.exports = {
   },
   alias: {
     "&plugins": path.resolve(__dirname, 'src/plugins'),
+    "&declarations": path.resolve(__dirname, 'src/declarations'),
   },
   devtool: false,
   module: {

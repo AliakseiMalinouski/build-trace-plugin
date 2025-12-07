@@ -1,4 +1,4 @@
-import { PluginCommonConfig } from "../common";
+import { PluginCommonConfig } from "../../declarations/common";
 
 export type UnusedModuleConfigType = {
     directory: string;

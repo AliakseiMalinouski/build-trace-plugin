@@ -60,7 +60,7 @@ yarn add build-trace-plugin -D
 
 ---
 
-# Config Example
+# 🛠️ Config Example
 
 ```ts
 // rspack.config.ts
@@ -105,7 +105,7 @@ module.exports = {
 
 ```
 
-# Output Example
+# 💾 Output Example
 
 ```bash
 

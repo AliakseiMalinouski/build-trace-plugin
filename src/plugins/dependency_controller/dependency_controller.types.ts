@@ -1,6 +1,6 @@
 import { Module } from "@rspack/core";
 
-import { PluginCommonConfig } from "../common";
+import { PluginCommonConfig } from "../../declarations/common";
 
 export const SupportedExtentions = {
     js: 'js',

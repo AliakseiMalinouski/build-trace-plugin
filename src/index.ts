@@ -12,6 +12,7 @@ import { LargeModuleConfig, LargeModuleConfigType, setupLargeModulePlugin } from
 
 import { BuildTracePluginOptions } from './types';
 import { setupBuildFileSizeAnalyzer } from "&plugins/build_file_size_analyzer";
+import { PluginCommonConfig } from "./declarations/common";
 
 export class BuildTracePlugin implements RspackPluginInstance {
     

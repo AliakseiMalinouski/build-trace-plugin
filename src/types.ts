@@ -1,4 +1,4 @@
-import { SupportedExtention } from "./plugins/dependency_controller";
+import { SupportedExtention } from "&plugins/dependency_controller";
 
 export type BuildTracePluginOptions = {
 
@@ -39,7 +39,7 @@ export type BuildTracePluginOptions = {
     };
 
     /**
-     * build fule size plugin flag
+     * build file size plugin options
      */
     buildFileSize?: boolean;
 };
