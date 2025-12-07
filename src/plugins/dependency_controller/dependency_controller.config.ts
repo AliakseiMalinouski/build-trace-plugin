@@ -9,5 +9,4 @@ export const DependencyControllerConfig: DependencyControllerConfigType = {
         SupportedExtentions.jsx,
         SupportedExtentions.tsx,
     ],
-    suspectedDependencies: [],
 };

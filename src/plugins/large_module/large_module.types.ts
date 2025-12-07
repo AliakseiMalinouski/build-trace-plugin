@@ -1,6 +1,6 @@
 import { PluginCommonConfig } from "../common";
 
-type LargeModule = {
+export type LargeModule = {
     name: string;
     type: string;
     size: number;
@@ -10,5 +10,4 @@ type LargeModule = {
 export type LargeModuleConfigType = {
     maxFileSize: number;
     directory: string;
-    largeModules: LargeModule[];
 } & PluginCommonConfig;

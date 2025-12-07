@@ -18,15 +18,13 @@ export type DependencyControllerPluginOptions = {
     fileExtentions?: SupportedExtention[];
 };
 
-type TSuspectedDependency = {
+export type SuspectedDependency = {
     name: string;
     category: string;
     critical: boolean;
 };
 
-export type DependencyControllerConfigType = Required<{
-    suspectedDependencies: TSuspectedDependency[];
-} & DependencyControllerPluginOptions & PluginCommonConfig>;
+export type DependencyControllerConfigType = Required<DependencyControllerPluginOptions & PluginCommonConfig>;
 
 export type PrepareModuleOutputParams = {
     module: Module;
