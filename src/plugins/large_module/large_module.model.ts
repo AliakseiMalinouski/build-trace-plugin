@@ -29,11 +29,20 @@ export const setupLargeModulePlugin = ({
                 });
             }
         }
-        const preparedModulesOutput = largeModules.map((largeModule) => 
-            `Module: ${largeModule.name} - size ${largeModule.size} KB \n`
-        ).join(' ');  
+        console.log(`\n`)
 
-        console.log(`Build has large ${largeModules.length} modules: \n ${preparedModulesOutput}`);
+        if(largeModules.length) {
+            console.log(`🏔️ Build has large ${largeModules.length} modules:`)
+            console.table(largeModules.map((module) => ({
+                type: module.type,
+                dependencies: module.dependencies,
+                size: `${(module.size / 1024).toFixed(2)}`,
+                name: module.name.split('/').pop()!,
+            })))
+        }
+        else {
+            console.log(`🥳 Build has 0 large modules!`)
+        }
 
         largeModules = [];
     });

@@ -11,6 +11,7 @@ import { BuildStatsConfigType, BuildStatsConfig, setupBuildStatsPlugin } from '&
 import { LargeModuleConfig, LargeModuleConfigType, setupLargeModulePlugin } from '&plugins/large_module';
 
 import { BuildTracePluginOptions } from './types';
+import { setupBuildFileSizeAnalyzer } from "&plugins/build_file_size_analyzer";
 
 export class BuildTracePlugin implements RspackPluginInstance {
     
@@ -83,6 +84,8 @@ export class BuildTracePlugin implements RspackPluginInstance {
             config: this.dependencyControllerConfig,
         })
     ));
+
+    compiler.hooks.done.tap('BuildFileSizeAnalyzer', setupBuildFileSizeAnalyzer);
 
     compiler.hooks.done.tap('BuildLogger', (stats) => (
         setupBuildStatsPlugin({
