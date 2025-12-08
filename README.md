@@ -22,32 +22,39 @@ Helps maintain a clean ESM architecture and prevents dependency poisoning.
 
 ---
 
-### **2. 📊 BuildStats — build statistics logger**
+### **2. 📊 Build Stats — build statistics logger**
 
 Creates a JSON file with build metrics and compares bundle size against the previous build.  
 Warns you when assets grow unexpectedly.
 
 ---
 
-### **3. 🧹 UnusedModule — unused module detector**
+### **3. 🗃️ Alias Tracker — tracks your alias usage**
+
+Analyzes all resolved module paths and detects usage of @ and &-based import aliases.
+Helps you understand how often each alias is used across your codebase and highlights alias distribution inside the project.
+
+---
+
+### **4. 🧹 Unused Module — unused module detector**
 
 Finds modules that have **no incoming connections** (not imported anywhere).
 
 ---
 
-### **4. 🔐 EnvValidator — environment variables validator**
+### **5. 🔐 Env Validator — environment variables validator**
 
 Validates required `process.env` variables before the build starts.
 
 ---
 
-### **5. 🐘 LargeModule — large file detector**
+### **6. 🐘 Large Module — large file detector**
 
 Identifies modules that exceed a given file size threshold.
 
 ---
 
-### **6. 📶 FileSizeAnalyzer — analyzes your build files sizes**
+### **7. 📶 File Size Analyzer — analyzes your build files sizes**
 
 Identifies modules that exceed a given file size threshold.
 

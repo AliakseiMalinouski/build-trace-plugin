@@ -12,11 +12,11 @@ export const setupAliasTrackerPlugin = ({
     config: AliasTrackerConfigType,
 }) => {
     if(!(config.aliasPrefix in AliasPrefixes)) {
-        console.error(`This type of alias is not supported! Supported alias: ${Object.keys(AliasPrefixes).join(',')}`);
+        console.error(`This type of alias is not supported! Supported alias: ${Object.keys(AliasPrefixes).join(', ')}`);
         return;
     };
     compilation.hooks.finishModules.tap('AliasTracker', (modules) => {
-        const hasNotAliasOption = !('alias' in compilation.options);
+        const hasNotAliasOption = !('alias' in compilation.options.resolve);
         if(hasNotAliasOption) return;
 
         const aliasStats: Record<string, number> = {};
@@ -38,7 +38,8 @@ export const setupAliasTrackerPlugin = ({
         console.log(`/n`);
         console.log(`🗃️ Alias stats by usage:`);
         console.table(Object.entries(aliasStats).map(([dir, amount]) => ({
-            [dir]: amount,
+            amount,
+            alias: dir,
         })));
     });
 };
