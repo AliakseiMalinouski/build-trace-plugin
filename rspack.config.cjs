@@ -14,10 +14,10 @@ module.exports = {
   },
   resolve: {
     extensions: ['.ts', '.js'],
-  },
-  alias: {
-    "&plugins": path.resolve(__dirname, 'src/plugins'),
-    "&declarations": path.resolve(__dirname, 'src/declarations'),
+    alias: {
+      "&plugins": path.resolve(__dirname, 'src/plugins'),
+      "&declarations": path.resolve(__dirname, 'src/declarations'),
+    },
   },
   devtool: false,
   module: {
