@@ -2,7 +2,8 @@
   "name": "build-trace-plugin",
   "version": "1.0.0",
   "type": "commonjs",
-  "main": "bundle.js",
+  "main": "build/bundle.js",
+  "types": "build/index.d.ts",
   "author": "Aliaksei Malinouski",
   "files": [
     "build"
