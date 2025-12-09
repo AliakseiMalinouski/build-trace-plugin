@@ -42,7 +42,10 @@ export type BuildTracePluginOptions = {
     /**
      * build file size plugin options
      */
-    buildFileSize?: boolean;
+    buildFileSize?: {
+        outputDir: string;
+        outputFile: string;
+    };
 
     /**
      * alias tracker plugin options

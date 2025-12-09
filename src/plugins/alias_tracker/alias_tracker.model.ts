@@ -11,6 +11,9 @@ export const setupAliasTrackerPlugin = ({
     compilation: Compilation,
     config: AliasTrackerConfigType,
 }) => {
+
+    if(!config.active) return;
+
     if(!(config.aliasPrefix in AliasPrefixes)) {
         console.error(`This type of alias is not supported! Supported alias: ${Object.keys(AliasPrefixes).join(', ')}`);
         return;

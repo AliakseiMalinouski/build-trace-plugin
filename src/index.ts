@@ -13,15 +13,16 @@ import { setupBuildFileSizeAnalyzer } from "&plugins/build_file_size_analyzer/bu
 import { AliasTrackerConfig, AliasTrackerConfigType, setupAliasTrackerPlugin } from "&plugins/alias_tracker";
 
 import { BuildTracePluginOptions } from './types';
+import { BuildFileSizeAnalyzerConfig } from "&plugins/build_file_size_analyzer";
 
 export class BuildTracePlugin implements RspackPluginInstance {
     
-    private readonly buildFileSizeActive: boolean = false;
     private readonly buildStatsConfig: BuildStatsConfigType = BuildStatsConfig;
     private readonly largeModuleConfig: LargeModuleConfigType = LargeModuleConfig;
     private readonly aliasTrackerConfig: AliasTrackerConfigType = AliasTrackerConfig;
     private readonly envValidatorConfig: EnvValidatorConfigType = EnvValidatorConfig;
     private readonly unusedModuleConfig: UnusedModuleConfigType = UnusedModuleConfig;
+    private readonly buildFileSizeActive: BuildStatsConfigType = BuildFileSizeAnalyzerConfig;
     private dependencyControllerConfig: DependencyControllerConfigType = DependencyControllerConfig;
 
     constructor (options: BuildTracePluginOptions) {
@@ -58,7 +59,11 @@ export class BuildTracePlugin implements RspackPluginInstance {
             fileExtentions: options.dependencyController?.fileExtentions ?? this.dependencyControllerConfig.fileExtentions,
         };
 
-        this.buildFileSizeActive = options.buildFileSize ?? this.buildFileSizeActive;
+        this.buildFileSizeActive = {
+            ...this.buildStatsConfig,
+            outputDir: options.buildFileSize?.outputDir ?? this.buildStatsConfig.outputDir,
+            outputFile: options.buildFileSize?.outputFile ?? this.buildStatsConfig.outputFile,
+        };
 
         this.aliasTrackerConfig = {
             ...this.aliasTrackerConfig,
@@ -102,7 +107,11 @@ export class BuildTracePlugin implements RspackPluginInstance {
         })
     ));
 
-    compiler.hooks.done.tap('BuildFileSizeAnalyzer', setupBuildFileSizeAnalyzer);
+    compiler.hooks.done.tap('BuildFileSizeAnalyzer', (stats) => (
+        setupBuildFileSizeAnalyzer({
+            stats, config: this.buildFileSizeActive,
+        })
+    ));
 
     compiler.hooks.done.tap('BuildLogger', (stats) => (
         setupBuildStatsPlugin({
