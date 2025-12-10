@@ -8,10 +8,6 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "types": ["node"],
-    "paths": {
-      "&plugins/*": ["./src/plugins/*"],
-      "&declarations/*": ["./src/declarations/*"]
-    }
   },
   "include": ["src"]
 }

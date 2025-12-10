@@ -1,5 +1,5 @@
-import { AliasPrefix } from "&plugins/alias_tracker";
-import { SupportedExtention } from "&plugins/dependency_controller";
+import { AliasPrefix } from "./plugins/alias_tracker";
+import { SupportedExtention } from "./plugins/dependency_controller";
 
 export type BuildTracePluginOptions = {
 
