@@ -3,7 +3,7 @@
   "version": "4.2.3",
   "type": "commonjs",
   "license": "MIT",
-  "main": "build/bundle.js",
+  "main": "build/index.js",
   "types": "build/index.d.ts",
   "author": "Aliaksei Malinouski",
   "description": "A powerful Rspack plugin for tracing, analyzing, and optimizing builds in React and TypeScript projects. Detects unused modules, oversized files, suspicious dependencies, invalid environment variables, and bundle regressions in a single tool.",
@@ -27,8 +27,7 @@
   ],
   "scripts": {
     "test": "vitest",
-    "build": "rspack build",
-    "types": "tsc -p tsconfig.build.json"
+    "build": "tsc -p tsconfig.build.json"
   },
   "peerDependencies": {
     "@rspack/core": ">=0.5.0"
@@ -37,7 +36,6 @@
     "@rspack/cli": "1.6.5",
     "@rspack/core": "1.6.5",
     "@types/node": "24.10.1",
-    "swc-loader": "0.2.6",
     "typescript": "5.9.3",
     "vitest": "4.0.15"
   }

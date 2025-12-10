@@ -1,7 +1,8 @@
 import { Stats } from "@rspack/core";
-import { beforeEach, afterEach, test, describe, expect, vi } from "vitest";
+import { beforeEach, test, describe, expect, vi } from "vitest";
 
 import { setupBuildFileSizeAnalyzer } from "../build_file_size_analyzer.model";
+import { BuildFileSizeConfigType } from "../build_file_size.analyzer.types";
 
 describe('Build File Size Analyzer Plugin', () => {
     const logSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
@@ -22,7 +23,14 @@ describe('Build File Size Analyzer Plugin', () => {
     } as unknown as Stats;
 
     test('should log table with assets sizes', () => {
-        setupBuildFileSizeAnalyzer(stats);
+        setupBuildFileSizeAnalyzer({
+            stats,
+            config: {
+                active: true,
+                outputDir: 'build',
+                outputFile: 'bundle.js',
+            } as BuildFileSizeConfigType
+        });
 
         expect(logSpy).toHaveBeenNthCalledWith(1, '\n');
         expect(logSpy).toHaveBeenNthCalledWith(2, '📶 Build File Size Plugin: Here are your build files sizes');
