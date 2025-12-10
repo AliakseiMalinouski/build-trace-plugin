@@ -2,11 +2,13 @@
   "name": "build-trace-plugin",
   "version": "3.1.0",
   "type": "commonjs",
+  "license": "MIT",
   "main": "build/bundle.js",
   "types": "build/index.d.ts",
   "author": "Aliaksei Malinouski",
   "files": [
-    "build"
+    "build",
+    "LICENSE"
   ],
   "scripts": {
     "test": "vitest",
