@@ -1,12 +1,19 @@
 {
   "name": "build-trace-plugin",
-  "version": "4.2.1",
+  "version": "4.2.2",
   "type": "commonjs",
   "license": "MIT",
   "main": "build/bundle.js",
   "types": "build/index.d.ts",
   "author": "Aliaksei Malinouski",
-  "keywords": ["React", "TypeScript", "Rspack", "Build", "Trace", "Plugin"],
+  "keywords": [
+    "React",
+    "TypeScript",
+    "Rspack",
+    "Build",
+    "Trace",
+    "Plugin"
+  ],
   "files": [
     "build",
     "LICENSE"
