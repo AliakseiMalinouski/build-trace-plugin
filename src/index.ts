@@ -22,7 +22,7 @@ export class BuildTracePlugin implements RspackPluginInstance {
     private readonly aliasTrackerConfig: AliasTrackerConfigType = AliasTrackerConfig;
     private readonly envValidatorConfig: EnvValidatorConfigType = EnvValidatorConfig;
     private readonly unusedModuleConfig: UnusedModuleConfigType = UnusedModuleConfig;
-    private readonly buildFileSizeActive: BuildStatsConfigType = BuildFileSizeAnalyzerConfig;
+    private readonly buildFileSizeConfig: BuildStatsConfigType = BuildFileSizeAnalyzerConfig;
     private dependencyControllerConfig: DependencyControllerConfigType = DependencyControllerConfig;
 
     constructor (options: BuildTracePluginOptions) {
@@ -59,10 +59,10 @@ export class BuildTracePlugin implements RspackPluginInstance {
             fileExtentions: options.dependencyController?.fileExtentions ?? this.dependencyControllerConfig.fileExtentions,
         };
 
-        this.buildFileSizeActive = {
-            ...this.buildStatsConfig,
-            outputDir: options.buildFileSize?.outputDir ?? this.buildStatsConfig.outputDir,
-            outputFile: options.buildFileSize?.outputFile ?? this.buildStatsConfig.outputFile,
+        this.buildFileSizeConfig = {
+            ...this.buildFileSizeConfig,
+            outputDir: options.buildFileSize?.outputDir ?? this.buildFileSizeConfig.outputDir,
+            outputFile: options.buildFileSize?.outputFile ?? this.buildFileSizeConfig.outputFile,
         };
 
         this.aliasTrackerConfig = {
@@ -109,7 +109,7 @@ export class BuildTracePlugin implements RspackPluginInstance {
 
     compiler.hooks.done.tap('BuildFileSizeAnalyzer', (stats) => (
         setupBuildFileSizeAnalyzer({
-            stats, config: this.buildFileSizeActive,
+            stats, config: this.buildFileSizeConfig,
         })
     ));
 
