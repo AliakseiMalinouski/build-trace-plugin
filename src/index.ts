@@ -9,11 +9,10 @@ import {
 } from '&plugins/dependency_controller';
 import { BuildStatsConfigType, BuildStatsConfig, setupBuildStatsPlugin } from '&plugins/build_stats';
 import { LargeModuleConfig, LargeModuleConfigType, setupLargeModulePlugin } from '&plugins/large_module';
-import { setupBuildFileSizeAnalyzer } from "&plugins/build_file_size_analyzer/build_file_size_analyzer.model";
 import { AliasTrackerConfig, AliasTrackerConfigType, setupAliasTrackerPlugin } from "&plugins/alias_tracker";
+import { BuildFileSizeAnalyzerConfig, BuildFileSizeConfigType, setupBuildFileSizeAnalyzer } from "&plugins/build_file_size_analyzer";
 
 import { BuildTracePluginOptions } from './types';
-import { BuildFileSizeAnalyzerConfig } from "&plugins/build_file_size_analyzer";
 
 export class BuildTracePlugin implements RspackPluginInstance {
     
@@ -22,7 +21,7 @@ export class BuildTracePlugin implements RspackPluginInstance {
     private readonly aliasTrackerConfig: AliasTrackerConfigType = AliasTrackerConfig;
     private readonly envValidatorConfig: EnvValidatorConfigType = EnvValidatorConfig;
     private readonly unusedModuleConfig: UnusedModuleConfigType = UnusedModuleConfig;
-    private readonly buildFileSizeConfig: BuildStatsConfigType = BuildFileSizeAnalyzerConfig;
+    private readonly buildFileSizeConfig: BuildFileSizeConfigType = BuildFileSizeAnalyzerConfig;
     private dependencyControllerConfig: DependencyControllerConfigType = DependencyControllerConfig;
 
     constructor (options: BuildTracePluginOptions) {

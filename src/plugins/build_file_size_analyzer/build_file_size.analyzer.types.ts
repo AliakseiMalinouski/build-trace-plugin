@@ -1,3 +1,5 @@
+import { PluginCommonConfig } from "&declarations/common";
+
 export const FilesType = {
     js: 'js',
     css: 'css',
@@ -32,3 +34,8 @@ export const imageFormats = [
   "wbmp", "fits", "pgf", "jbig", "jbig2", "bpg", "blp", "ilbm", "iff",
   "pix", "rgb", "rgba", "bw", "cut", "dcx"
 ];
+
+export type BuildFileSizeConfigType = {
+  outputDir: string;
+  outputFile: string;
+} & PluginCommonConfig;

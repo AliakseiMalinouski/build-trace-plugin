@@ -1,6 +1,6 @@
-import { BuildStatsConfigType } from "&plugins/build_stats";
+import { BuildFileSizeConfigType } from "./build_file_size.analyzer.types";
 
-export const BuildFileSizeAnalyzerConfig: BuildStatsConfigType = {
+export const BuildFileSizeAnalyzerConfig: BuildFileSizeConfigType = {
     outputDir: 'build',
     outputFile: 'main.js',
     active: false,

@@ -1,14 +1,14 @@
 import { Stats } from "@rspack/core";
 
 import { getAssetType } from "./utils";
-import { BuildStatsConfigType } from "&plugins/build_stats";
+import { BuildFileSizeConfigType } from "./build_file_size.analyzer.types";
 
 export const setupBuildFileSizeAnalyzer = ({
     stats,
     config,
 }: {
     stats: Stats, 
-    config: BuildStatsConfigType
+    config: BuildFileSizeConfigType
 }) => {
 
     if(!config.active) return;
