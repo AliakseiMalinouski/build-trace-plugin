@@ -6,13 +6,20 @@
   "main": "build/bundle.js",
   "types": "build/index.d.ts",
   "author": "Aliaksei Malinouski",
+  "description": "A powerful Rspack plugin for tracing, analyzing, and optimizing builds in React and TypeScript projects. Detects unused modules, oversized files, suspicious dependencies, invalid environment variables, and bundle regressions in a single tool.",
   "keywords": [
+    "rspack",
+    "rspack-plugin",
+    "build-tracing",
+    "dependency-analysis",
+    "unused-modules",
+    "large-modules",
+    "env-validator",
+    "build-stats",
     "React",
     "TypeScript",
-    "Rspack",
-    "Build",
-    "Trace",
-    "Plugin"
+    "build-optimization",
+    "module-tracking"
   ],
   "files": [
     "build",

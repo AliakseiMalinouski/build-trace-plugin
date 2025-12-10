@@ -31,7 +31,7 @@ Warns you when assets grow unexpectedly.
 
 ### **3. 🗃️ Alias Tracker — tracks your alias usage**
 
-Analyzes all resolved module paths and detects usage of @ and &-based import aliases.
+Analyzes all resolved module paths and detects usage of @ import aliases.
 Helps you understand how often each alias is used across your codebase and highlights alias distribution inside the project.
 
 ---
