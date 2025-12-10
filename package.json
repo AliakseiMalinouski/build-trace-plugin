@@ -1,6 +1,6 @@
 {
   "name": "build-trace-plugin",
-  "version": "4.2.0",
+  "version": "4.2.1",
   "type": "commonjs",
   "license": "MIT",
   "main": "build/bundle.js",
