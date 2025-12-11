@@ -61,8 +61,6 @@ export class BuildTracePlugin implements RspackPluginInstance {
         this.buildFileSizeConfig = {
             ...this.buildFileSizeConfig,
             active: !!options.buildFileSize,
-            outputDir: options.buildFileSize?.outputDir ?? this.buildFileSizeConfig.outputDir,
-            outputFile: options.buildFileSize?.outputFile ?? this.buildFileSizeConfig.outputFile,
         };
 
         this.aliasTrackerConfig = {

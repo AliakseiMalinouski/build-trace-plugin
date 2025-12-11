@@ -35,7 +35,4 @@ export const imageFormats = [
   "pix", "rgb", "rgba", "bw", "cut", "dcx"
 ];
 
-export type BuildFileSizeConfigType = {
-  outputDir: string;
-  outputFile: string;
-} & PluginCommonConfig;
+export type BuildFileSizeConfigType = {} & PluginCommonConfig;

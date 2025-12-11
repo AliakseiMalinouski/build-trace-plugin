@@ -38,7 +38,7 @@ export const setupAliasTrackerPlugin = ({
 
         if(!Object.keys(aliasStats)) return;
 
-        console.log(`/n`);
+        console.log(`\n`);
         console.log(`🗃️ Alias stats by usage:`);
         console.table(Object.entries(aliasStats).map(([dir, amount]) => ({
             amount,

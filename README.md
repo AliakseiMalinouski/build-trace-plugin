@@ -8,7 +8,15 @@ A powerful multi-module diagnostic plugin for **Rspack** that helps you detect u
 
 ## 🚀 Features
 
-### **1. 🕵️ DependencyController — suspicious dependency detector**
+
+### **1. 📊 Build Stats — build statistics logger**
+
+Creates a JSON file with build metrics and compares bundle size against the previous build.  
+Warns you when assets grow unexpectedly.
+
+---
+
+### **2. 🕵️ DependencyController — suspicious dependency detector**
 
 Analyzes module dependencies and flags:
 
@@ -19,13 +27,6 @@ Analyzes module dependencies and flags:
 - unknown dependency categories
 
 Helps maintain a clean ESM architecture and prevents dependency poisoning.
-
----
-
-### **2. 📊 Build Stats — build statistics logger**
-
-Creates a JSON file with build metrics and compares bundle size against the previous build.  
-Warns you when assets grow unexpectedly.
 
 ---
 
@@ -112,6 +113,10 @@ module.exports = {
       },
 
       buildFileSize: true,
+
+      aliasTracker: {
+        aliasPrefix: AliasPrefix;
+      };
     }),
   ],
 };
@@ -147,6 +152,21 @@ Rspack compiled successfully in 102 ms
 │ 3       │ false    │ 'unknown'           │ './src/services/skeleton/index.ts'         │
 └─────────┴──────────┴─────────────────────┴────────────────────────────────────────────┘
 
+🗃️ Alias stats by usage:
+┌─────────┬────────┬────────────────┐
+│ (index) │ amount │ alias          │
+├─────────┼────────┼────────────────┤
+│ 0       │ 203    │ '@radix-ui'    │
+│ 1       │ 1      │ '@effector'    │
+│ 2       │ 13     │ '@swc'         │
+│ 3       │ 20     │ '@babel'       │
+│ 4       │ 5      │ '@floating-ui' │
+│ 5       │ 1      │ '@wojtekmaj'   │
+│ 6       │ 1      │ '@withease'    │
+│ 7       │ 2      │ '@farfetched'  │
+└─────────┴────────┴────────────────┘
+
+Build Stats Plugin:
 💪 Assets size is normal
 ✅ Build has finished successfully
 📊 Build general stats generated in build_stats/build_stats.json
