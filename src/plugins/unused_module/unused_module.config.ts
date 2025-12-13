@@ -1,7 +1,10 @@
+import { UnusedModuleOptions } from "./unused_module.types";
+
 /**
  * default config for unused module plugin
  */
-export const UnusedModuleConfig= {
+export const UnusedModuleConfig: UnusedModuleOptions = {
     active: false,
-    directory: 'src',
+    dir: 'src',
+    skip: ['test', '__tests__', 'types.ts'],
 };

@@ -1,7 +1,8 @@
+import path from "path";
 import { Compiler, RspackPluginInstance } from "@rspack/core";
 
 import { EnvValidatorConfig, EnvValidatorConfigType, setupEnvValidatorPlugin } from './plugins/env_validator';
-import { setupUnusedModulePlugin, UnusedModuleConfig, UnusedModuleConfigType } from './plugins/unused_module';
+import { setupUnusedModulePlugin, UnusedModuleConfig, UnusedModuleOptions } from './plugins/unused_module';
 import { 
     DependencyControllerConfig, 
     DependencyControllerConfigType, 
@@ -20,7 +21,7 @@ export class BuildTracePlugin implements RspackPluginInstance {
     private readonly largeModuleConfig: LargeModuleConfigType = LargeModuleConfig;
     private readonly aliasTrackerConfig: AliasTrackerConfigType = AliasTrackerConfig;
     private readonly envValidatorConfig: EnvValidatorConfigType = EnvValidatorConfig;
-    private readonly unusedModuleConfig: UnusedModuleConfigType = UnusedModuleConfig;
+    private readonly unusedModuleConfig: UnusedModuleOptions= UnusedModuleConfig;
     private readonly buildFileSizeConfig: BuildFileSizeConfigType = BuildFileSizeAnalyzerConfig;
     private dependencyControllerConfig: DependencyControllerConfigType = DependencyControllerConfig;
 
@@ -35,7 +36,8 @@ export class BuildTracePlugin implements RspackPluginInstance {
         this.unusedModuleConfig = {
             ...this.unusedModuleConfig,
             active: !!options.unusedModule,
-            directory: options.unusedModule?.directory ?? this.unusedModuleConfig.directory,
+            skip: options.unusedModule?.skip ?? this.unusedModuleConfig.skip,
+            dir: path.resolve(process.cwd(), options.unusedModule?.dir ?? 'src'),
         };
 
         this.largeModuleConfig = {

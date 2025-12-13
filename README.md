@@ -16,7 +16,13 @@ Warns you when assets grow unexpectedly.
 
 ---
 
-### **2. 🕵️ DependencyController — suspicious dependency detector**
+### **2. 🧹 Unused Module — unused module detector**
+
+Finds modules that are not imported anywhere.
+
+---
+
+### **3. 🕵️ DependencyController — suspicious dependency detector**
 
 Analyzes module dependencies and flags:
 
@@ -30,16 +36,10 @@ Helps maintain a clean ESM architecture and prevents dependency poisoning.
 
 ---
 
-### **3. 🗃️ Alias Tracker — tracks your alias usage**
+### **4. 🗃️ Alias Tracker — tracks your alias usage**
 
 Analyzes all resolved module paths and detects usage of @ import aliases.
 Helps you understand how often each alias is used across your codebase and highlights alias distribution inside the project.
-
----
-
-### **4. 🧹 Unused Module — unused module detector**
-
-Finds modules that have **no incoming connections** (not imported anywhere).
 
 ---
 
@@ -104,7 +104,8 @@ module.exports = {
       },
 
       unusedModule: {
-        directory: "src",
+        dir: "src",
+        skip: ["__tests__", "types.ts"],
       },
 
       largeModule: {

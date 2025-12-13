@@ -12,7 +12,8 @@ export type BuildTracePluginOptions = {
      * ununsed module plugin options
      */
     unusedModule?: {
-        directory: string;
+        dir: string;
+        skip: string[];
     };
 
     /**
