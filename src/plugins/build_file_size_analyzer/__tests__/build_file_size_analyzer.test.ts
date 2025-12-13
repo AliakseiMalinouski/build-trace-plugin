@@ -27,8 +27,6 @@ describe('Build File Size Analyzer Plugin', () => {
             stats,
             config: {
                 active: true,
-                outputDir: 'build',
-                outputFile: 'bundle.js',
             } as BuildFileSizeConfigType
         });
 

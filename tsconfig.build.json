@@ -8,5 +8,6 @@
     "target": "ES2019",
     "strict": true
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["**/__tests__/**", "**/*.test.ts"]
 }
