@@ -74,7 +74,6 @@ export const setupBuildStatsPlugin = ({
         );      
     }
 
-    console.log(`\n`);
     console.log(styleText('greenBright', '✅ Build has finished successfully'));
     console.log(styleText('blueBright', `📊 Build general stats generated in ${config.outputDir}/${config.outputFile}`));
 };

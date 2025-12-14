@@ -31,7 +31,7 @@ export const setupLargeModulePlugin = ({
                 });
             }
         }
-        console.log(`\n`)
+        console.log(`\n`);
 
         if(largeModules.length) {
             console.log(styleText('yellowBright', `🏔️ Build has large ${largeModules.length} modules:`))
