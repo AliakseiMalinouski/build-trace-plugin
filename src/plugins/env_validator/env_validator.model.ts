@@ -1,3 +1,5 @@
+import { styleText } from "util";
+
 import { EnvValidatorConfigType } from "./env_validator.types"
 
 export const setupEnvValidatorPlugin = ({
@@ -21,10 +23,10 @@ export const setupEnvValidatorPlugin = ({
         console.log(`\n`);
         
         if(hasValidEnvs) {
-            console.log(`✅ Env Validator Plugin: All required environment variables are valid`);
+            console.log(styleText('green', `✅ Env Validator Plugin: All required environment variables are valid`));
         }
         else {
-            console.log(`❌ Env Validator Plugin: Some environment variable is not valid: ${invalidEnvs}`);
+            console.log(styleText('yellowBright', `❌ Env Validator Plugin: Some environment variable is not valid: ${invalidEnvs}`));
         }
     }
 };

@@ -1,4 +1,6 @@
 import { Compilation } from "@rspack/core";
+import { styleText } from "util";
+
 import { LargeModule, LargeModuleConfigType } from "./large_module.types";
 
 export const setupLargeModulePlugin = ({
@@ -32,7 +34,7 @@ export const setupLargeModulePlugin = ({
         console.log(`\n`)
 
         if(largeModules.length) {
-            console.log(`🏔️ Build has large ${largeModules.length} modules:`)
+            console.log(styleText('yellowBright', `🏔️ Build has large ${largeModules.length} modules:`))
             console.table(largeModules.map((module) => ({
                 type: module.type,
                 dependencies: module.dependencies,
@@ -41,7 +43,7 @@ export const setupLargeModulePlugin = ({
             })))
         }
         else {
-            console.log(`🥳 Build has 0 large modules!`)
+            console.log(styleText('green', `🥳 Build has 0 large modules!`))
         }
 
         largeModules = [];

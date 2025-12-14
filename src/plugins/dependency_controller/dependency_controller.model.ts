@@ -1,4 +1,5 @@
 import { Compilation } from "@rspack/core";
+import { styleText } from "util";
 
 import { DependencyControllerConfigType, SuspectedDependency, SuspectedDependencyCategories } from "./dependency_controller.types";
 import { prepareModuleOutput } from "./utils";
@@ -44,7 +45,7 @@ export const setupDependencyControllerPlugin = ({
 
     console.log(`\n`);
     if(!suspectedDependencies.length) {
-        console.log(`✅ Build has ${suspectedDependencies.length} modules dependencies!`);
+        console.log(styleText('green', `✅ Build has ${suspectedDependencies.length} modules dependencies!`));
     }
     else {
         console.log(`🧐 Build has ${suspectedDependencies.length} suspected dependencies in modules:`);

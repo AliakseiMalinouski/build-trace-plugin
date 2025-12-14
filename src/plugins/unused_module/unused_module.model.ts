@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { styleText } from "util";
 import { Compilation } from "@rspack/core";
 
 import { UnusedModuleOptions } from "./unused_module.types";
@@ -56,12 +57,12 @@ export const setupUnusedModulePlugin = ({
         const deadFiles = allFiles.filter((fsPath) => !usedModuleFiles.has(path.normalize(fsPath)));
 
         if (deadFiles.length) {
-            console.log(`\n🔴 Unused files in ${config.dir}:`);
-            for (const f of deadFiles) {
-                console.log(" - " + f);
-            }
+            console.log(styleText('yellowBright', `\n🔴 Unused ${deadFiles.length} files in ${config.dir}:`));
+            console.table(deadFiles.map((file) => ({
+                name: file
+            })))
         } else {
-            console.log(`\n🥳 No unused files in ${config.dir}`);
+            console.log(styleText('green', `\n🥳 No unused files in ${config.dir}`));
         }
     });
 }

@@ -1,4 +1,5 @@
 import { Stats } from "@rspack/core";
+import { styleText } from "util";
 
 import { getAssetType } from "./utils";
 import { BuildFileSizeConfigType } from "./build_file_size.analyzer.types";
@@ -21,7 +22,7 @@ export const setupBuildFileSizeAnalyzer = ({
     };
 
     console.log(`\n`);
-    console.log(`📶 Build File Size Plugin: Here are your build files sizes`);
+    console.log(styleText('blueBright', `📶 Build File Size Plugin: Here are your build files sizes`));
 
     console.table(assets.map((asset) => ({
         name: asset.name,

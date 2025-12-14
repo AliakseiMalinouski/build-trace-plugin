@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from "path";
+import { styleText } from 'util';
 
 import { Compiler, Stats } from "@rspack/core";
 
@@ -47,10 +48,10 @@ export const setupBuildStatsPlugin = ({
 
         if(assetsSize > fileValue.assetsSize) {
         const difference = Number(assetsSize) - Number(fileValue.assetsSize);
-            console.warn(`📈 Assets size has increased about: ${difference} KB`);
+            console.warn(styleText(`yellowBright`, `📈 Assets size has increased about: ${difference} KB`));
         }
         else {
-            console.log('💪 Assets size is normal');
+            console.log(styleText(`greenBright`, '💪 Assets size is normal'));
         }
 
         const updatedStats = {
@@ -64,7 +65,7 @@ export const setupBuildStatsPlugin = ({
         );        
     }
     catch (e) {
-        console.log(`🔴 Could not read build stats file: \n ${e}, \n Creating a new file...`,);
+        console.log(styleText('redBright', `🔴 Could not read build stats file: \n ${e}, \n Creating a new file...`));
 
         fs.mkdirSync(buildStatsDir, { recursive: true });
         fs.writeFileSync(
@@ -74,6 +75,6 @@ export const setupBuildStatsPlugin = ({
     }
 
     console.log(`\n`);
-    console.log('✅ Build has finished successfully');
-    console.log(`📊 Build general stats generated in ${config.outputDir}/${config.outputFile}`);
+    console.log(styleText('greenBright', '✅ Build has finished successfully'));
+    console.log(styleText('blueBright', `📊 Build general stats generated in ${config.outputDir}/${config.outputFile}`));
 };

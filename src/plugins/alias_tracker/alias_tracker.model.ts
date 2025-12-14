@@ -1,4 +1,5 @@
 import { Compilation } from "@rspack/core";
+import { styleText } from "util";
 
 import { AliasPrefixes, AliasTrackerConfigType } from "./alias_tracker.types";
 
@@ -39,7 +40,7 @@ export const setupAliasTrackerPlugin = ({
         if(!Object.keys(aliasStats)) return;
 
         console.log(`\n`);
-        console.log(`🗃️ Alias stats by usage:`);
+        console.log(styleText('blueBright', `🗃️ Alias stats by usage:`));
         console.table(Object.entries(aliasStats).map(([dir, amount]) => ({
             amount,
             alias: dir,
