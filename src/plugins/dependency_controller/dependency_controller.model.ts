@@ -35,7 +35,7 @@ export const setupDependencyControllerPlugin = ({
             if(!isSuspected) continue;
             
             suspectedDependencies.push({
-                name: moduleName,
+                name: moduleName ?? 'Unknown',
                 critical: dependency.critical,
                 category: dependency.category,
             });

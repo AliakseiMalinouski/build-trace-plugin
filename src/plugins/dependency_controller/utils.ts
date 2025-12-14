@@ -4,10 +4,18 @@ export const prepareModuleOutput = ({
     module,
     config,
 }: PrepareModuleOutputParams) => {
-    const moduleName = module.nameForCondition() ?? 'Unknown';
-    const moduleNameParts = module.nameForCondition()?.split('/') || [];
-    const isNodeModule = module.context?.includes('node_modules') ?? false;
-    const hasValidDirectory = module.context?.includes(config.directory) ?? false;
+    const moduleName = module.nameForCondition() ?? null;
+    if(!moduleName) {
+        return {
+            moduleName: null,
+            isNodeModule: false,
+            hasValidDirectory: false,
+            hasValidExtention: false,
+        };
+    }
+    const moduleNameParts = moduleName.split('/') || [];
+    const isNodeModule = moduleName.includes('node_modules');
+    const hasValidDirectory = moduleName.includes(config.directory);
 
     const moduleFile = moduleNameParts[moduleNameParts?.length - 1];
     const moduleFileParts = moduleFile.split('.');
