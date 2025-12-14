@@ -1,7 +1,6 @@
 import path from "path";
 import { Compiler, RspackPluginInstance } from "@rspack/core";
 
-import { EnvValidatorConfig, EnvValidatorConfigType, setupEnvValidatorPlugin } from './plugins/env_validator';
 import { setupUnusedModulePlugin, UnusedModuleConfig, UnusedModuleOptions } from './plugins/unused_module';
 import { 
     DependencyControllerConfig, 
@@ -20,18 +19,11 @@ export class BuildTracePlugin implements RspackPluginInstance {
     private readonly buildStatsConfig: BuildStatsConfigType = BuildStatsConfig;
     private readonly largeModuleConfig: LargeModuleConfigType = LargeModuleConfig;
     private readonly aliasTrackerConfig: AliasTrackerConfigType = AliasTrackerConfig;
-    private readonly envValidatorConfig: EnvValidatorConfigType = EnvValidatorConfig;
     private readonly unusedModuleConfig: UnusedModuleOptions= UnusedModuleConfig;
     private readonly buildFileSizeConfig: BuildFileSizeConfigType = BuildFileSizeAnalyzerConfig;
     private dependencyControllerConfig: DependencyControllerConfigType = DependencyControllerConfig;
 
     constructor (options: BuildTracePluginOptions) {
-        
-        this.envValidatorConfig = {
-            ...this.envValidatorConfig,
-            active: !!options.envValidator,
-            envs: options.envValidator?.envs ?? this.envValidatorConfig.envs,
-        }
 
         this.unusedModuleConfig = {
             ...this.unusedModuleConfig,
@@ -73,12 +65,6 @@ export class BuildTracePlugin implements RspackPluginInstance {
     }
 
     apply (compiler: Compiler) {
-
-    compiler.hooks.initialize.tap('EnvValidator', () => (
-        setupEnvValidatorPlugin({
-            config: this.envValidatorConfig,
-        })
-    ));
 
     compiler.hooks.thisCompilation.tap('UnusedModule', (compilation) => (
         setupUnusedModulePlugin({

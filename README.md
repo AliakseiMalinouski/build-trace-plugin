@@ -41,21 +41,13 @@ Helps maintain a clean ESM architecture and prevents dependency poisoning.
 Analyzes all resolved module paths and detects usage of @ import aliases.
 Helps you understand how often each alias is used across your codebase and highlights alias distribution inside the project.
 
----
-
-### **5. 🔐 Env Validator — environment variables validator**
-
-Validates required `process.env` variables before the build starts.
-
----
-
-### **6. 🐘 Large Module — large file detector**
+### **5. 🐘 Large Module — large file detector**
 
 Identifies modules that exceed a given file size threshold.
 
 ---
 
-### **7. 📶 File Size Analyzer — analyzes your build files sizes**
+### **6. 📶 File Size Analyzer — analyzes your build files sizes**
 
 Identifies modules that exceed a given file size threshold.
 
@@ -96,13 +88,6 @@ module.exports = {
         outputFile: "build-stats.json",
       },
 
-      envValidator: {
-        envs: {
-          API_URL: process.env.API_URL,
-          AUTH_TOKEN: process.env.AUTH_TOKEN,
-        },
-      },
-
       unusedModule: {
         dir: "src",
         skip: ["__tests__", "types.ts"],
@@ -116,7 +101,7 @@ module.exports = {
       buildFileSize: true,
 
       aliasTracker: {
-        aliasPrefix: AliasPrefix;
+        aliasPrefix: '@';
       };
     }),
   ],
@@ -130,15 +115,13 @@ module.exports = {
 
 Rspack compiled successfully in 102 ms
 
-❌ Env Validator Plugin: Some environment variable is not valid: API_URL
-
 🏔️ Large Module Plugin: Build has 3 large modules:
 ┌─────────┬────────────────────┬──────────────┬────────┬─────────────────────────────┐
 │ (index) │ type               │ dependencies │ size   │ name                        │
 ├─────────┼────────────────────┼──────────────┼────────┼─────────────────────────────┤
-│ 0       │ 'javascript/auto'  │ 27           │ '1.97' │ 'modal.ts'                  │
-│ 1       │ 'javascript/auto'  │ 20           │ '1.28' │ 'header.ts'                 │
-│ 2       │ 'javascript/auto'  │ 19           │ '1.30' │ 'footer.tsx'                │
+│ 0       │ 'javascript/auto'  │ 27           │'1.97KB'│ 'modal.ts'                  │
+│ 1       │ 'javascript/auto'  │ 20           │'1.28KB'│ 'header.ts'                 │
+│ 2       │ 'javascript/auto'  │ 19           │'1.30KB'│ 'footer.tsx'                │
 └─────────┴────────────────────┴──────────────┴────────┴─────────────────────────────┘
 
 🥳 Ununsed Module Plugin: Build has 0 unused modules

@@ -25,7 +25,7 @@ export const setupLargeModulePlugin = ({
             if(isLargeModule) {
                 largeModules.push({
                     type: module.type,
-                    size: module.size() / 1024,
+                    size: `${(module.size() / 1024).toFixed(2)}KB`,
                     dependencies: module.dependencies.length,
                     name: module.nameForCondition() || 'Unknown',
                 });
@@ -37,9 +37,9 @@ export const setupLargeModulePlugin = ({
             console.log(styleText('yellowBright', `🏔️ Build has large ${largeModules.length} modules:`))
             console.table(largeModules.map((module) => ({
                 type: module.type,
+                size: module.size,
                 dependencies: module.dependencies,
-                size: `${(module.size / 1024).toFixed(2)}`,
-                name: module.name.split('/').pop()!,
+                name: module.name.split('/').pop(),
             })))
         }
         else {

@@ -3,11 +3,6 @@ import { SupportedExtention } from "./plugins/dependency_controller";
 
 export type BuildTracePluginOptions = {
 
-    /** env validator plugin options */
-    envValidator?: {
-        envs: Record<string, string | undefined>;
-    };
-
     /**
      * ununsed module plugin options
      */

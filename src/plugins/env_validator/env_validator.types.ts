@@ -1,5 +1,0 @@
-import { PluginCommonConfig } from "../../declarations/common";
-
-export type EnvValidatorConfigType = {
-    envs: Record<string, string | undefined | null>;
-} & PluginCommonConfig;

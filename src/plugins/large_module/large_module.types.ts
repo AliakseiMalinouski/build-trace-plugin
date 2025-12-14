@@ -3,7 +3,7 @@ import { PluginCommonConfig } from "../../declarations/common";
 export type LargeModule = {
     name: string;
     type: string;
-    size: number;
+    size: string;
     dependencies: number;
 };
 
