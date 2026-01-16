@@ -10,7 +10,6 @@ describe("DependencyController Plugin", () => {
   beforeEach(() => {
     logSpy.mockClear();
     tableSpy.mockClear();
-    (prepareModuleOutput as Mock).mockClear();
   });
 
   const mockModule = (name: string, dependencies: any[] = [], isNodeModule = false) => ({
@@ -50,13 +49,6 @@ describe("DependencyController Plugin", () => {
     const compilation = mockCompilation(modules);
     const config = prepareConfig();
 
-    (prepareModuleOutput as Mock).mockImplementation(({ module }) => ({
-      moduleName: module.nameForCondition(),
-      isNodeModule: module.isNodeModule,
-      hasValidDirectory: true,
-      hasValidExtention: true,
-    }));
-
     setupDependencyControllerPlugin({ compilation, config });
 
     expect(logSpy).toHaveBeenCalledWith("\n");
@@ -74,13 +66,6 @@ describe("DependencyController Plugin", () => {
     ];
     const compilation = mockCompilation(modules);
     const config = prepareConfig();
-
-    (prepareModuleOutput as Mock).mockImplementation(({ module }) => ({
-      moduleName: module.nameForCondition(),
-      isNodeModule: false,
-      hasValidDirectory: true,
-      hasValidExtention: true,
-    }));
 
     setupDependencyControllerPlugin({ compilation, config });
 
@@ -104,13 +89,6 @@ describe("DependencyController Plugin", () => {
     const modules = [mockModule("other/module.ts", [{ category: "commonjs", critical: true }])];
     const compilation = mockCompilation(modules);
     const config = prepareConfig();
-
-    (prepareModuleOutput as Mock).mockImplementation(({ module }) => ({
-      moduleName: module.nameForCondition(),
-      isNodeModule: false,
-      hasValidDirectory: false,
-      hasValidExtention: true,
-    }));
 
     setupDependencyControllerPlugin({ compilation, config });
 
