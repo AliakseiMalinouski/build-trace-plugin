@@ -1,6 +1,6 @@
 {
   "name": "build-trace-plugin",
-  "version": "4.8.1",
+  "version": "4.8.2",
   "type": "commonjs",
   "license": "MIT",
   "main": "build/index.js",
