@@ -1,11 +1,7 @@
 import { Compilation } from "@rspack/core";
 import { describe, test, expect, vi, beforeEach, Mock } from "vitest";
 
-import * as utils from "../utils";
-import { DependencyControllerConfigType } from "../dependency_controller.types";
-import { setupDependencyControllerPlugin } from "../dependency_controller.model";
-
-vi.mock("../utils");
+import { DependencyControllerConfigType, prepareModuleOutput, setupDependencyControllerPlugin } from "../dependency_controller.model";
 
 describe("DependencyController Plugin", () => {
   const logSpy = vi.spyOn(console, "log").mockImplementation(() => {});
@@ -14,7 +10,7 @@ describe("DependencyController Plugin", () => {
   beforeEach(() => {
     logSpy.mockClear();
     tableSpy.mockClear();
-    (utils.prepareModuleOutput as Mock).mockClear();
+    (prepareModuleOutput as Mock).mockClear();
   });
 
   const mockModule = (name: string, dependencies: any[] = [], isNodeModule = false) => ({
@@ -54,7 +50,7 @@ describe("DependencyController Plugin", () => {
     const compilation = mockCompilation(modules);
     const config = prepareConfig();
 
-    (utils.prepareModuleOutput as Mock).mockImplementation(({ module }) => ({
+    (prepareModuleOutput as Mock).mockImplementation(({ module }) => ({
       moduleName: module.nameForCondition(),
       isNodeModule: module.isNodeModule,
       hasValidDirectory: true,
@@ -79,7 +75,7 @@ describe("DependencyController Plugin", () => {
     const compilation = mockCompilation(modules);
     const config = prepareConfig();
 
-    (utils.prepareModuleOutput as Mock).mockImplementation(({ module }) => ({
+    (prepareModuleOutput as Mock).mockImplementation(({ module }) => ({
       moduleName: module.nameForCondition(),
       isNodeModule: false,
       hasValidDirectory: true,
@@ -109,7 +105,7 @@ describe("DependencyController Plugin", () => {
     const compilation = mockCompilation(modules);
     const config = prepareConfig();
 
-    (utils.prepareModuleOutput as Mock).mockImplementation(({ module }) => ({
+    (prepareModuleOutput as Mock).mockImplementation(({ module }) => ({
       moduleName: module.nameForCondition(),
       isNodeModule: false,
       hasValidDirectory: false,

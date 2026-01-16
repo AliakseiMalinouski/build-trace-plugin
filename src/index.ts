@@ -7,11 +7,10 @@ import {
     DependencyControllerConfigType, 
     setupDependencyControllerPlugin
 } from './plugins/dependency_controller';
-import { BuildStatsConfigType, BuildStatsConfig, setupBuildStatsPlugin } from './plugins/build_stats';
+import { BuildStatsConfig, BuildStatsConfigType, setupBuildStatsPlugin } from './plugins/build_stats';
 import { LargeModuleConfig, LargeModuleConfigType, setupLargeModulePlugin } from './plugins/large_module';
 import { AliasTrackerConfig, AliasTrackerConfigType, setupAliasTrackerPlugin } from "./plugins/alias_tracker";
 import { BuildFileSizeAnalyzerConfig, BuildFileSizeConfigType, setupBuildFileSizeAnalyzer } from "./plugins/build_file_size_analyzer";
-
 import { BuildTracePluginOptions } from './types';
 
 export class BuildTracePlugin implements RspackPluginInstance {

@@ -1,8 +1,7 @@
 import { Stats } from "@rspack/core";
 import { beforeEach, test, describe, expect, vi } from "vitest";
 
-import { setupBuildFileSizeAnalyzer } from "../build_file_size_analyzer.model";
-import { BuildFileSizeConfigType } from "../build_file_size.analyzer.types";
+import { BuildFileSizeConfigType, setupBuildFileSizeAnalyzer } from "../build_file_size_analyzer.model";
 
 describe('Build File Size Analyzer Plugin', () => {
     const logSpy = vi.spyOn(console, 'log').mockImplementation(() => {});

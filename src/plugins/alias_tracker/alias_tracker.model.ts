@@ -1,9 +1,27 @@
 import { Compilation } from "@rspack/core";
 import { styleText } from "util";
 
-import { AliasPrefixes, AliasTrackerConfigType } from "./alias_tracker.types";
+import { PluginCommonConfig } from "../../common.types";
+
+export const AliasPrefixes = {
+    '@': '@',
+};
+
+export type AliasPrefix = keyof typeof AliasPrefixes;
+
+export type AliasTrackerConfigType = {
+    aliasPrefix: AliasPrefix;
+} & PluginCommonConfig;
 
 const aliasRegex = /[@&][\w\d-_]+/g;
+
+/**
+ * default config for Alias Tracker Plugin
+ */
+export const AliasTrackerConfig: AliasTrackerConfigType = {
+    aliasPrefix: '@',
+    active: false,
+};
 
 export const setupAliasTrackerPlugin = ({
     config,

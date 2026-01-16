@@ -4,7 +4,21 @@ import { styleText } from 'util';
 
 import { Compiler, Stats } from "@rspack/core";
 
-import { BuildStatsConfigType } from "./build_stats.types";
+import { PluginCommonConfig } from '../../common.types';
+
+export type BuildStatsConfigType = {
+    outputDir: string;
+    outputFile: string;
+} & PluginCommonConfig;
+
+/**
+ * default settings for build stats plugin
+ */
+export const BuildStatsConfig= {
+    active: false,
+    outputDir: 'build_stats',
+    outputFile: 'build_stats.json',
+};
 
 export const setupBuildStatsPlugin = ({
     stats,

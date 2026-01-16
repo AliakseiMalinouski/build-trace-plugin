@@ -1,7 +1,27 @@
 import { Compilation } from "@rspack/core";
 import { styleText } from "util";
+import { PluginCommonConfig } from "../../common.types";
 
-import { LargeModule, LargeModuleConfigType } from "./large_module.types";
+export type LargeModule = {
+    name: string;
+    type: string;
+    size: string;
+    dependencies: number;
+};
+
+export type LargeModuleConfigType = {
+    maxFileSize: number;
+    directory: string;
+} & PluginCommonConfig;
+
+/**
+ * default config for large module plugin
+ */
+export const LargeModuleConfig = {
+    active: false,
+    directory: 'src',
+    maxFileSize: 1024,
+};
 
 export const setupLargeModulePlugin = ({
     config,

@@ -3,7 +3,21 @@ import path from "path";
 import { styleText } from "util";
 import { Compilation } from "@rspack/core";
 
-import { UnusedModuleOptions } from "./unused_module.types";
+import { PluginCommonConfig } from "../../common.types";
+
+export type UnusedModuleOptions = {
+    dir: string;
+    skip?: string[];
+} & PluginCommonConfig;
+
+/**
+ * default config for unused module plugin
+ */
+export const UnusedModuleConfig: UnusedModuleOptions = {
+    active: false,
+    dir: 'src',
+    skip: ['test', '__tests__', 'types.ts'],
+};
 
 function readAllFiles(dir: string, skip: string[]): string[] {
     const result: string[] = [];
