@@ -1,7 +1,7 @@
 import { Compilation } from "@rspack/core";
 import { describe, test, expect, vi, beforeEach, Mock } from "vitest";
 
-import { DependencyControllerConfigType, prepareModuleOutput, setupDependencyControllerPlugin } from "../dependency_controller.model";
+import { type DependencyControllerConfigType, setupDependencyControllerPlugin } from "../dependency_controller.model";
 
 describe("DependencyController Plugin", () => {
   const logSpy = vi.spyOn(console, "log").mockImplementation(() => {});

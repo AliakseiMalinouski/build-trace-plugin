@@ -1,7 +1,7 @@
 import { Module, Compilation } from "@rspack/core";
 import { styleText } from "util";
 
-import { PluginCommonConfig } from "../../common.types";
+import { type PluginCommonConfig } from "../../common.types";
 
 export const SupportedExtentions = {
     js: 'js',

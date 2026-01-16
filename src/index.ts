@@ -1,17 +1,17 @@
 import path from "path";
 import { Compiler, RspackPluginInstance } from "@rspack/core";
 
-import { setupUnusedModulePlugin, UnusedModuleConfig, UnusedModuleOptions } from './plugins/unused_module';
+import { setupUnusedModulePlugin, UnusedModuleConfig, type UnusedModuleOptions } from './plugins/unused_module';
 import { 
     DependencyControllerConfig, 
-    DependencyControllerConfigType, 
+    type DependencyControllerConfigType, 
     setupDependencyControllerPlugin
 } from './plugins/dependency_controller';
-import { BuildStatsConfig, BuildStatsConfigType, setupBuildStatsPlugin } from './plugins/build_stats';
-import { LargeModuleConfig, LargeModuleConfigType, setupLargeModulePlugin } from './plugins/large_module';
-import { AliasTrackerConfig, AliasTrackerConfigType, setupAliasTrackerPlugin } from "./plugins/alias_tracker";
-import { BuildFileSizeAnalyzerConfig, BuildFileSizeConfigType, setupBuildFileSizeAnalyzer } from "./plugins/build_file_size_analyzer";
-import { BuildTracePluginOptions } from './types';
+import { BuildStatsConfig, type BuildStatsConfigType, setupBuildStatsPlugin } from './plugins/build_stats';
+import { LargeModuleConfig, type LargeModuleConfigType, setupLargeModulePlugin } from './plugins/large_module';
+import { AliasTrackerConfig, type AliasTrackerConfigType, setupAliasTrackerPlugin } from "./plugins/alias_tracker";
+import { BuildFileSizeAnalyzerConfig, type BuildFileSizeConfigType, setupBuildFileSizeAnalyzer } from "./plugins/build_file_size_analyzer";
+import { type BuildTracePluginOptions } from './types';
 
 export class BuildTracePlugin implements RspackPluginInstance {
     

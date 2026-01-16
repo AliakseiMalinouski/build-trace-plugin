@@ -4,3 +4,4 @@ node_modules/
 *.log
 vitest.config.ts
 tsconfig.json
+build/**/*.types.js
