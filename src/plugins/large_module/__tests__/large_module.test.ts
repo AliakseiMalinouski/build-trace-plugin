@@ -76,13 +76,13 @@ describe("Large Module Plugin", () => {
       {
         type: "javascript/auto",
         dependencies: 5,
-        size: "0.00",
+        size: "2.00KB",
         name: "large1.ts",
       },
       {
         type: "javascript/auto",
         dependencies: 3,
-        size: "0.00",
+        size: "3.00KB",
         name: "large2.ts",
       },
     ]);

@@ -1,4 +1,4 @@
-import { PluginCommonConfig } from "../../declarations/common";
+import { PluginCommonConfig } from "../../common.types";
 
 export const FilesType = {
     js: 'js',
